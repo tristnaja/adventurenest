@@ -3,21 +3,27 @@ import { PrismaNeon } from '@prisma/adapter-neon'
 import { Pool, neonConfig } from '@neondatabase/serverless'
 import ws from 'ws'
 
-// Setup for Neon in Node.js (Local Dev)
 if (typeof window === 'undefined' && process.env.NODE_ENV === 'development') {
   neonConfig.webSocketConstructor = ws
 }
 
 const prismaClientSingleton = () => {
-  // We provide a fallback string to prevent the constructor from being "empty" 
-  // during the Next.js static analysis/build phase.
-  const connectionString = process.env.DATABASE_URL || "postgresql://placeholder:placeholder@localhost:5432/db"
+  const url = process.env.DATABASE_URL
 
-  const pool = new Pool({ connectionString })
-  const adapter = new PrismaNeon(pool as any)
-  
-  // ✅ Prisma 7 Fix: Always pass the adapter object.
-  return new PrismaClient({ adapter })
+  // If no URL (common during build/static analysis), 
+  // return a standard client. It will only fail if a query is actually executed.
+  if (!url) {
+    return new PrismaClient()
+  }
+
+  // If it's a Neon URL, use the adapter
+  if (url.includes('neon.tech')) {
+    const pool = new Pool({ connectionString: url })
+    const adapter = new PrismaNeon(pool as any)
+    return new PrismaClient({ adapter })
+  }
+
+  return new PrismaClient()
 }
 
 const globalForPrisma = globalThis as unknown as {
