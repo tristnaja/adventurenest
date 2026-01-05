@@ -9,7 +9,8 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "AdventureNest - Your Portal for Outdoor Services",
-  description: "Book camping, hiking, and adventure tourism experiences. Join our community of outdoor enthusiasts and discover unforgettable adventures.",
+  description:
+    "Book camping, hiking, and adventure tourism experiences. Join our community of outdoor enthusiasts and discover unforgettable adventures.",
   icons: {
     icon: [
       { url: "/icon.png", sizes: "any" },
@@ -59,9 +60,7 @@ export default function RootLayout({
       <body className={`${inter.className} flex flex-col min-h-screen`}>
         <Providers>
           <Header />
-          <main className="flex-grow container mx-auto px-4 py-8">
-            {children}
-          </main>
+          <main className="grow container mx-auto px-4 py-8">{children}</main>
           <Footer />
         </Providers>
       </body>

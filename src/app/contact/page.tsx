@@ -107,7 +107,7 @@ export default function ContactPage() {
                     id="message"
                     required
                     placeholder="How can we help you?"
-                    className="w-full min-h-[120px] px-3 py-2 rounded-md border border-input bg-background"
+                    className="w-full min-h-30 px-3 py-2 rounded-md border border-input bg-background"
                   />
                 </div>
               </CardContent>

@@ -37,7 +37,7 @@ const teamMembers = [
     name: "Raden Ajeng Reina Shafira Gayatri",
     role: "Lead Guide",
     bio: "Certified wilderness guide with expertise in mountaineering, rock climbing, and survival skills. Safety first, adventure always.",
-    image: "/team/placeholder.jpg", // Replace with actual image path
+    image: "/team/reina.jpeg", // Replace with actual image path
   },
   {
     name: "Farrel Candra Winata Afandi",
@@ -146,7 +146,7 @@ export default function AboutPage() {
       {/* Team Section */}
       <div>
         <h2 className="text-3xl font-bold mb-6 text-center">Meet Our Team</h2>
-        <div className="flex flex-wrap justify-center gap-6 max-w-[1200px] mx-auto">
+        <div className="flex flex-wrap justify-center gap-6 max-w-300 mx-auto">
           {teamMembers.map((member) => {
             // Get initials for fallback
             const initials = member.name
@@ -157,10 +157,10 @@ export default function AboutPage() {
             return (
               <Card
                 key={member.name}
-                className="text-center w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] max-w-[350px]"
+                className="text-center w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] max-w-87.5"
               >
                 <CardHeader>
-                  <div className="w-32 h-32 rounded-full mx-auto mb-4 overflow-hidden bg-gradient-to-br from-blue-500 to-green-500 flex items-center justify-center">
+                  <div className="w-32 h-32 rounded-full mx-auto mb-4 overflow-hidden bg-linear-to-br from-blue-500 to-green-500 flex items-center justify-center">
                     {member.image.includes("placeholder") ? (
                       // Show initials for placeholder
                       <span className="text-white text-3xl font-bold">
@@ -190,7 +190,7 @@ export default function AboutPage() {
       </div>
 
       {/* Stats Section */}
-      <Card className="bg-gradient-to-r from-blue-50 to-green-50 dark:from-blue-950 dark:to-green-950">
+      <Card className="bg-linear-to-r from-blue-50 to-green-50 dark:from-blue-950 dark:to-green-950">
         <CardContent className="py-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             <div>

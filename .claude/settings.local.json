@@ -10,7 +10,13 @@
       "Bash(npx prisma db seed:*)",
       "Bash(npm run dev:*)",
       "Bash(lsof:*)",
-      "Bash(xargs kill -9)"
+      "Bash(xargs kill -9)",
+      "Bash(vercel ls:*)",
+      "Bash(vercel inspect:*)",
+      "Bash(vercel env:*)",
+      "Bash(vercel integration add:*)",
+      "Bash(openssl rand:*)",
+      "Bash(git add:*)"
     ]
   }
 }

@@ -27,7 +27,7 @@ export default function Home() {
             priority
           />
         </div>
-        <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-blue-600 to-green-600 bg-clip-text text-transparent">
+        <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-linear-to-r from-blue-600 to-green-600 bg-clip-text text-transparent">
           Welcome to AdventureNest
         </h1>
         <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-3xl mx-auto">
@@ -87,8 +87,8 @@ export default function Home() {
             </CardHeader>
             <CardContent className="text-center">
               <CardDescription>
-                Join a vibrant community of outdoor enthusiasts, share experiences,
-                and make lasting connections.
+                Join a vibrant community of outdoor enthusiasts, share
+                experiences, and make lasting connections.
               </CardDescription>
             </CardContent>
           </Card>
@@ -97,9 +97,7 @@ export default function Home() {
 
       {/* Services Overview */}
       <section>
-        <h2 className="text-3xl font-bold text-center mb-12">
-          What We Offer
-        </h2>
+        <h2 className="text-3xl font-bold text-center mb-12">What We Offer</h2>
         <div className="grid md:grid-cols-2 gap-8">
           <Card className="hover:shadow-lg transition">
             <CardHeader>
@@ -132,8 +130,8 @@ export default function Home() {
             </CardHeader>
             <CardContent className="space-y-3">
               <p className="text-muted-foreground">
-                Shop for premium outdoor equipment or find great deals on used gear
-                in our community marketplace.
+                Shop for premium outdoor equipment or find great deals on used
+                gear in our community marketplace.
               </p>
               <ul className="space-y-2 text-muted-foreground">
                 <li>✓ New Gear Shop - Quality equipment and apparel</li>
@@ -155,25 +153,33 @@ export default function Home() {
       </section>
 
       {/* Stats Section */}
-      <section className="bg-gradient-to-r from-blue-50 to-green-50 dark:from-blue-950 dark:to-green-950 rounded-lg p-8 md:p-12">
+      <section className="bg-linear-to-r from-blue-50 to-green-50 dark:from-blue-950 dark:to-green-950 rounded-lg p-8 md:p-12">
         <h2 className="text-3xl font-bold text-center mb-8">
           Join Our Growing Community
         </h2>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
           <div>
-            <p className="text-4xl md:text-5xl font-bold text-blue-600">5,000+</p>
+            <p className="text-4xl md:text-5xl font-bold text-blue-600">
+              5,000+
+            </p>
             <p className="text-muted-foreground mt-2">Happy Adventurers</p>
           </div>
           <div>
-            <p className="text-4xl md:text-5xl font-bold text-green-600">150+</p>
+            <p className="text-4xl md:text-5xl font-bold text-green-600">
+              150+
+            </p>
             <p className="text-muted-foreground mt-2">Activities</p>
           </div>
           <div>
-            <p className="text-4xl md:text-5xl font-bold text-purple-600">25+</p>
+            <p className="text-4xl md:text-5xl font-bold text-purple-600">
+              25+
+            </p>
             <p className="text-muted-foreground mt-2">Expert Guides</p>
           </div>
           <div>
-            <p className="text-4xl md:text-5xl font-bold text-orange-600">4.9★</p>
+            <p className="text-4xl md:text-5xl font-bold text-orange-600">
+              4.9★
+            </p>
             <p className="text-muted-foreground mt-2">Average Rating</p>
           </div>
         </div>
@@ -198,8 +204,8 @@ export default function Home() {
           <Card>
             <CardContent className="pt-6">
               <p className="text-muted-foreground italic mb-4">
-                "Perfect for team building! Our corporate group had an amazing time
-                and really bonded during the camping weekend."
+                "Perfect for team building! Our corporate group had an amazing
+                time and really bonded during the camping weekend."
               </p>
               <p className="font-semibold">- Mike K.</p>
             </CardContent>
@@ -218,8 +224,10 @@ export default function Home() {
       </section>
 
       {/* CTA Section */}
-      <section className="text-center bg-gradient-to-r from-blue-600 to-green-600 text-white rounded-lg p-12">
-        <h2 className="text-4xl font-bold mb-4">Ready for Your Next Adventure?</h2>
+      <section className="text-center bg-linear-to-r from-blue-600 to-green-600 text-white rounded-lg p-12">
+        <h2 className="text-4xl font-bold mb-4">
+          Ready for Your Next Adventure?
+        </h2>
         <p className="text-xl mb-8 opacity-90">
           Book your experience today and create memories that last a lifetime
         </p>

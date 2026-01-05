@@ -18,7 +18,8 @@ const menuItems = {
     {
       title: "Browse All Activities",
       href: "/activities",
-      description: "Find your next adventure from our full range of activities.",
+      description:
+        "Find your next adventure from our full range of activities.",
     },
     {
       title: "Events Calendar",
@@ -54,12 +55,14 @@ const menuItems = {
     {
       title: "Forums",
       href: "/community/forums",
-      description: "Join the discussion, ask questions, and share your knowledge.",
+      description:
+        "Join the discussion, ask questions, and share your knowledge.",
     },
     {
       title: "Member Stories",
       href: "/community/stories",
-      description: "Read inspiring stories and see photos from fellow adventurers.",
+      description:
+        "Read inspiring stories and see photos from fellow adventurers.",
     },
   ],
   "About Us": [
@@ -84,7 +87,7 @@ export function Navigation() {
           <NavigationMenuItem key={title}>
             <NavigationMenuTrigger>{title}</NavigationMenuTrigger>
             <NavigationMenuContent>
-              <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
+              <ul className="grid w-100 gap-3 p-4 md:w-125 md:grid-cols-2 lg:w-150 ">
                 {subItems.map((item) => (
                   <ListItem
                     key={item.title}
