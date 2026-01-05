@@ -1,6 +1,7 @@
 // src/auth.ts
 import NextAuth from "next-auth"
 import { PrismaAdapter } from "@auth/prisma-adapter"
+export const dynamic = "force-dynamic";
 import { prisma } from "@/lib/db" // Ensure this path to your prisma client is correct
 import Google from "next-auth/providers/google"
 // Import other providers as needed

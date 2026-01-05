@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import { prisma } from "@/lib/db";
 import {
   Card,
@@ -12,12 +13,16 @@ import AddToCartButton from "./AddToCartButton";
 
 // Image mapping for products (in production, these would be stored in the database)
 const productImages: Record<string, string> = {
-  "Professional Hiking Backpack": "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=800&auto=format&fit=crop",
-  "Camping Tent (4-Person)": "https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=800&auto=format&fit=crop",
-  "Portable Water Filter": "https://images.unsplash.com/photo-1523362628745-0c100150b504?w=800&auto=format&fit=crop",
+  "Professional Hiking Backpack":
+    "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=800&auto=format&fit=crop",
+  "Camping Tent (4-Person)":
+    "https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=800&auto=format&fit=crop",
+  "Portable Water Filter":
+    "https://images.unsplash.com/photo-1523362628745-0c100150b504?w=800&auto=format&fit=crop",
 };
 
-const defaultProductImage = "https://images.unsplash.com/photo-1486849353243-6c73f1e22c1e?w=800&auto=format&fit=crop";
+const defaultProductImage =
+  "https://images.unsplash.com/photo-1486849353243-6c73f1e22c1e?w=800&auto=format&fit=crop";
 
 /**
  * New Gear Shop page displaying all available products.

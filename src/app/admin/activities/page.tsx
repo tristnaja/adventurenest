@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import { prisma } from "@/lib/db";
 import {
   Table,
@@ -64,7 +65,9 @@ export default async function AdminActivitiesPage() {
             </div>
           ) : (
             <Table>
-              <TableCaption>All available activities in the system</TableCaption>
+              <TableCaption>
+                All available activities in the system
+              </TableCaption>
               <TableHeader>
                 <TableRow>
                   <TableHead>Name</TableHead>

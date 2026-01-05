@@ -15,6 +15,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+export const dynamic = "force-dynamic";
 import { prisma } from "@/lib/db";
 import { auth } from "@/auth";
 import Link from "next/link";
@@ -67,7 +68,7 @@ export default async function MyBookingsPage() {
       activity: true,
     },
     orderBy: {
-      bookingDate: 'desc',
+      bookingDate: "desc",
     },
   });
 

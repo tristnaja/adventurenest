@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import { prisma } from "@/lib/db";
 import {
   Table,
@@ -126,9 +127,7 @@ export default async function AdminUsersPage() {
                     </TableCell>
                     <TableCell>{user._count.bookings}</TableCell>
                     <TableCell>{user._count.marketplaceListings}</TableCell>
-                    <TableCell>
-                      {user.createdAt.toLocaleDateString()}
-                    </TableCell>
+                    <TableCell>{user.createdAt.toLocaleDateString()}</TableCell>
                   </TableRow>
                 ))}
               </TableBody>

@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import { prisma } from "@/lib/db";
 import {
   Card,
@@ -112,7 +113,9 @@ export default async function AdminDashboardPage() {
       <Card>
         <CardHeader>
           <CardTitle>Recent Bookings</CardTitle>
-          <CardDescription>Latest booking activity on the platform</CardDescription>
+          <CardDescription>
+            Latest booking activity on the platform
+          </CardDescription>
         </CardHeader>
         <CardContent>
           {recentBookings.length === 0 ? (
@@ -135,7 +138,8 @@ export default async function AdminDashboardPage() {
                   </div>
                   <div className="text-right">
                     <p className="font-semibold">
-                      ${(
+                      $
+                      {(
                         Number(booking.activity.price) *
                         booking.participantCount
                       ).toFixed(2)}

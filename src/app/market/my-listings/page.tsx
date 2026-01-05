@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import { prisma } from "@/lib/db";
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
@@ -69,9 +70,7 @@ export default async function MyListingsPage() {
       <Card>
         <CardHeader>
           <CardTitle>Your Items ({listings.length})</CardTitle>
-          <CardDescription>
-            All your marketplace listings
-          </CardDescription>
+          <CardDescription>All your marketplace listings</CardDescription>
         </CardHeader>
         <CardContent>
           {listings.length === 0 ? (

@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import { prisma } from "@/lib/db";
 import { auth } from "@/auth";
 import {
@@ -88,7 +89,8 @@ export default async function MarketplacePage() {
                 <CardDescription>{listing.description}</CardDescription>
                 <div className="mt-4">
                   <p className="text-sm text-muted-foreground">
-                    <strong>Seller:</strong> {listing.seller.name || "Anonymous"}
+                    <strong>Seller:</strong>{" "}
+                    {listing.seller.name || "Anonymous"}
                   </p>
                   <p className="text-sm text-muted-foreground">
                     <strong>Posted:</strong>{" "}

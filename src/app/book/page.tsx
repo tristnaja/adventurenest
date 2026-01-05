@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import { prisma } from "@/lib/db";
 import BookingForm from "./BookingForm";
 
@@ -12,12 +13,12 @@ export default async function BookingPage() {
       price: true,
     },
     orderBy: {
-      name: 'asc',
+      name: "asc",
     },
   });
 
   // Convert Decimal to number for Client Component serialization
-  const activities = activitiesRaw.map(activity => ({
+  const activities = activitiesRaw.map((activity) => ({
     id: activity.id,
     name: activity.name,
     price: Number(activity.price),
