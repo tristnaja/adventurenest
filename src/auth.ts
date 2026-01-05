@@ -1,15 +1,28 @@
-import { PrismaClient } from "@prisma/client";
-import { PrismaPg } from "@prisma/adapter-pg";
-import { Pool } from "pg";
+// src/auth.ts
+import NextAuth from "next-auth"
+import { PrismaAdapter } from "@auth/prisma-adapter"
+import { prisma } from "@/lib/db" // Ensure this path to your prisma client is correct
+import Google from "next-auth/providers/google"
+// Import other providers as needed
 
-const connectionString = process.env.adventurenest_POSTGRES_PRISMA_URL;
-const pool = new Pool({ connectionString });
-const adapter = new PrismaPg(pool);
+export const { handlers, auth, signIn, signOut } = NextAuth({
+  adapter: PrismaAdapter(prisma),
+  providers: [
+    Google({
+      clientId: process.env.AUTH_GOOGLE_ID,
+      clientSecret: process.env.AUTH_GOOGLE_SECRET,
+    }),
+  ],
+  callbacks: {
+    session({ session, user }) {
+      if (session.user) {
+        session.user.id = user.id;
+      }
+      return session;
+    },
+  },
+})
 
-// The singleton pattern for Next.js
-const globalForPrisma = globalThis as unknown as { prisma: PrismaClient };
-
-export const prisma = 
-  globalForPrisma.prisma || new PrismaClient({ adapter: adapter });
-
-if (process.env.NODE_ENV !== "production") globalForPrisma.prisma = prisma;
+// This solves the "Export GET/POST doesn't exist" error 
+// by making the handlers available to the route file
+export const { GET, POST } = handlers;
