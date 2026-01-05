@@ -2,6 +2,6 @@ import { defineConfig } from 'prisma/config'
 
 export default defineConfig({
   migrate: {
-    datasourceUrl: process.env.DATABASE_URL!,
+    datasourceUrl: process.env.adventurenest_DATABASE_URL_UNPOOLED!,
   },
 })
