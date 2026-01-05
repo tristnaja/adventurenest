@@ -3,7 +3,13 @@ import { PrismaAdapter } from "@auth/prisma-adapter";
 import { PrismaClient } from "@prisma/client";
 import authConfig from "./auth.config";
 
-const prisma = new PrismaClient();
+const prisma = new PrismaClient({
+  datasources: {
+    db: {
+      url: process.env.adventurenest_POSTGRES_PRISMA_URL,
+    },
+  },
+});
 
 export const {
   handlers: { GET, POST },
