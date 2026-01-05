@@ -1,7 +1,9 @@
-import { defineConfig } from 'prisma'
+// prisma.config.mjs
+import { defineConfig, env } from "prisma/config";
 
 export default defineConfig({
   datasource: {
-    url: process.env.adventurenest_POSTGRES_PRISMA_URL,
+    // Use the env() helper provided by Prisma for better stability
+    url: env("adventurenest_POSTGRES_PRISMA_URL"),
   },
-})
+});
