@@ -1,7 +1,7 @@
-import { defineConfig } from 'prisma/config'
+import { defineConfig } from 'prisma'
 
 export default defineConfig({
   datasource: {
-    url: process.env.adventurenest_DATABASE_URL_UNPOOLED!,
+    url: process.env.adventurenest_POSTGRES_PRISMA_URL,
   },
 })
