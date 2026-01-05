@@ -3,7 +3,7 @@ import { PrismaNeon } from '@prisma/adapter-neon'
 import { Pool, neonConfig } from '@neondatabase/serverless'
 import ws from 'ws'
 
-// This allows the Neon serverless driver to work in local environments/Node.js
+// Standard setup for Neon serverless in Node environments
 if (typeof window === 'undefined' && process.env.NODE_ENV === 'development') {
   neonConfig.webSocketConstructor = ws
 }
@@ -11,25 +11,28 @@ if (typeof window === 'undefined' && process.env.NODE_ENV === 'development') {
 const prismaClientSingleton = () => {
   const connectionString = process.env.DATABASE_URL
 
+  // If there's no connection string during build, we still provide a 
+  // "dummy" configuration to prevent the "empty options" crash.
   if (!connectionString) {
-    throw new Error('DATABASE_URL is not defined')
+    return new PrismaClient()
   }
 
-  // Use the Neon Driver Adapter for Neon databases
+  // Use Neon Adapter for Neon databases (Production/Preview)
   if (connectionString.includes('neon.tech')) {
     const pool = new Pool({ connectionString })
     const adapter = new PrismaNeon(pool as any)
     return new PrismaClient({ adapter })
   }
 
-  // Fallback for local Postgres (standard driver)
+  // Fallback for local development (Standard Postgres)
   return new PrismaClient()
 }
 
-declare global {
-  var prisma: undefined | ReturnType<typeof prismaClientSingleton>
+// Singleton pattern to prevent multiple clients in development
+const globalForPrisma = globalThis as unknown as {
+  prisma: PrismaClient | undefined
 }
 
-export const prisma = globalThis.prisma ?? prismaClientSingleton()
+export const prisma = globalForPrisma.prisma ?? prismaClientSingleton()
 
-if (process.env.NODE_ENV !== 'production') globalThis.prisma = prisma
+if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma
