@@ -16,7 +16,9 @@
       "Bash(vercel env:*)",
       "Bash(vercel integration add:*)",
       "Bash(openssl rand:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(ls:*)",
+      "Bash(git commit:*)"
     ]
   }
 }
