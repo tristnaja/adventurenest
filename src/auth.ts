@@ -4,7 +4,11 @@ import { PrismaClient } from "@prisma/client";
 import authConfig from "./auth.config";
 
 const prisma = new PrismaClient({
-   datasourceUrl: process.env.adventurenest_POSTGRES_PRISMA_URL,
+  datasources: {
+    db: {
+      url: process.env.adventurenest_POSTGRES_PRISMA_URL,
+    },
+  },
 });
 
 export const {
