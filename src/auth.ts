@@ -1,9 +1,11 @@
 // src/auth.ts
-import NextAuth from "next-auth"
+import NextAuth, { type NextAuthConfig } from "next-auth"
 import { PrismaAdapter } from "@auth/prisma-adapter"
 export const dynamic = "force-dynamic";
 import { prisma } from "@/lib/db"
 import Google from "next-auth/providers/google"
+import type { Session } from "next-auth"
+import type { User } from "next-auth"
 
 // Check if database is available before initializing adapter
 const isDatabaseConfigured = () => {
@@ -11,7 +13,7 @@ const isDatabaseConfigured = () => {
   return !!url && !url.includes('placeholder');
 };
 
-const authConfig = {
+const authConfig: NextAuthConfig = {
   providers: [
     Google({
       clientId: process.env.AUTH_GOOGLE_ID,
@@ -19,17 +21,17 @@ const authConfig = {
     }),
   ],
   callbacks: {
-    async authorized({ auth: session }) {
+    async authorized({ auth: session }: { auth: Session | null }): Promise<boolean> {
       return !!session;
     },
-    session({ session, user }) {
+    session({ session, user }: { session: Session; user: User }): Session {
       if (session.user && user) {
         session.user.id = user.id;
       }
       return session;
     },
   },
-} as any;
+};
 
 // Only attach adapter if database is properly configured
 if (isDatabaseConfigured()) {
