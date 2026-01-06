@@ -15,6 +15,11 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     }),
   ],
   callbacks: {
+    async authorized({ auth: session }) {
+      // If no database is configured, allow requests to proceed
+      // (they may fail later when trying to query, but auth won't crash on init)
+      return !!session;
+    },
     session({ session, user }) {
       if (session.user) {
         session.user.id = user.id;

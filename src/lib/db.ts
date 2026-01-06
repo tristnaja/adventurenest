@@ -13,11 +13,17 @@ const prismaClientSingleton = () => {
     process.env.adventurenest_DATABASE_URL || 
     process.env.DATABASE_URL;
 
-  // Prisma 7 Fix: If no connection string is found (common during the build phase),
-  // we provide a placeholder to prevent the constructor from crashing.
+  // Prisma 7 Fix: If no connection string is found (common during the build phase
+  // or when environment variables aren't properly set), we provide a placeholder.
+  // This prevents the Prisma client from crashing when auth tries to connect.
   if (!connectionString) {
+    console.warn(
+      '[Prisma] No database URL found. Using placeholder connection. ' +
+      'Ensure DATABASE_URL or adventurenest_DATABASE_URL is set in your environment.'
+    );
+    
     // Cast options to any because PrismaClientOptions typing doesn't include the
-    // datasources override we need during the build step.
+    // datasources override we need during the build step or offline scenarios.
     return new PrismaClient({
       datasources: {
         db: {
