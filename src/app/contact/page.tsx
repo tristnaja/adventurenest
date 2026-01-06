@@ -19,6 +19,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { sendContactEmail } from "./actions";
 
 /**
  * Contact & Support page with contact form and information.
@@ -26,15 +27,31 @@ import {
 export default function ContactPage() {
   const [isSubmitting, setIsSubmitting] = React.useState(false);
   const [submitted, setSubmitted] = React.useState(false);
+  const [error, setError] = React.useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setError(null);
 
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+    const formData = new FormData(e.currentTarget);
+    const name = formData.get("name") as string;
+    const email = formData.get("email") as string;
+    const subject = formData.get("subject") as string;
+    const message = formData.get("message") as string;
 
-    setSubmitted(true);
+    const result = await sendContactEmail({
+      name,
+      email,
+      subject,
+      message,
+    });
+
+    if (result.success) {
+      setSubmitted(true);
+    } else {
+      setError(result.error || "Failed to send message. Please try again.");
+    }
     setIsSubmitting(false);
   };
 
@@ -70,15 +87,26 @@ export default function ContactPage() {
           ) : (
             <form onSubmit={handleSubmit}>
               <CardContent className="space-y-4">
+                {error && (
+                  <div className="p-3 bg-red-50 border border-red-200 rounded-md text-red-800 text-sm">
+                    {error}
+                  </div>
+                )}
                 <div className="space-y-2">
                   <Label htmlFor="name">Full Name</Label>
-                  <Input id="name" required placeholder="John Doe" />
+                  <Input
+                    id="name"
+                    name="name"
+                    required
+                    placeholder="John Doe"
+                  />
                 </div>
 
                 <div className="space-y-2">
                   <Label htmlFor="email">Email</Label>
                   <Input
                     id="email"
+                    name="email"
                     type="email"
                     required
                     placeholder="john@example.com"
@@ -87,16 +115,20 @@ export default function ContactPage() {
 
                 <div className="space-y-2">
                   <Label htmlFor="subject">Subject</Label>
-                  <Select required>
+                  <Select name="subject" required>
                     <SelectTrigger id="subject">
                       <SelectValue placeholder="Select a topic" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="booking">Booking Inquiry</SelectItem>
-                      <SelectItem value="support">Technical Support</SelectItem>
-                      <SelectItem value="feedback">Feedback</SelectItem>
-                      <SelectItem value="partnership">Partnership</SelectItem>
-                      <SelectItem value="other">Other</SelectItem>
+                      <SelectItem value="Booking Inquiry">
+                        Booking Inquiry
+                      </SelectItem>
+                      <SelectItem value="Technical Support">
+                        Technical Support
+                      </SelectItem>
+                      <SelectItem value="Feedback">Feedback</SelectItem>
+                      <SelectItem value="Partnership">Partnership</SelectItem>
+                      <SelectItem value="Other">Other</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -105,6 +137,7 @@ export default function ContactPage() {
                   <Label htmlFor="message">Message</Label>
                   <textarea
                     id="message"
+                    name="message"
                     required
                     placeholder="How can we help you?"
                     className="w-full min-h-30 px-3 py-2 rounded-md border border-input bg-background"
