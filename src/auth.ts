@@ -2,12 +2,26 @@
 import NextAuth from "next-auth"
 import { PrismaAdapter } from "@auth/prisma-adapter"
 export const dynamic = "force-dynamic";
-import { prisma } from "@/lib/db" // Ensure this path to your prisma client is correct
+import { prisma } from "@/lib/db"
 import Google from "next-auth/providers/google"
-// Import other providers as needed
+
+// Wrap the adapter to handle missing database gracefully
+const getAdapter = () => {
+  const connectionString = process.env.DATABASE_URL || process.env.adventurenest_DATABASE_URL;
+  
+  if (!connectionString) {
+    console.warn(
+      '[NextAuth] No DATABASE_URL configured. Auth adapter will be unavailable. ' +
+      'Set DATABASE_URL or adventurenest_DATABASE_URL in your environment.'
+    );
+    return undefined; // Return undefined to skip adapter if no DB
+  }
+  
+  return PrismaAdapter(prisma);
+};
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
-  adapter: PrismaAdapter(prisma),
+  adapter: getAdapter(),
   providers: [
     Google({
       clientId: process.env.AUTH_GOOGLE_ID,
@@ -16,8 +30,6 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   ],
   callbacks: {
     async authorized({ auth: session }) {
-      // If no database is configured, allow requests to proceed
-      // (they may fail later when trying to query, but auth won't crash on init)
       return !!session;
     },
     session({ session, user }) {
