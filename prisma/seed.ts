@@ -1,5 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 
+// Initialize Prisma client - v6 uses DATABASE_URL from env automatically
 const prisma = new PrismaClient();
 
 /**
