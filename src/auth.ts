@@ -5,23 +5,13 @@ export const dynamic = "force-dynamic";
 import { prisma } from "@/lib/db"
 import Google from "next-auth/providers/google"
 
-// Wrap the adapter to handle missing database gracefully
-const getAdapter = () => {
-  const connectionString = process.env.DATABASE_URL || process.env.adventurenest_DATABASE_URL;
-  
-  if (!connectionString) {
-    console.warn(
-      '[NextAuth] No DATABASE_URL configured. Auth adapter will be unavailable. ' +
-      'Set DATABASE_URL or adventurenest_DATABASE_URL in your environment.'
-    );
-    return undefined; // Return undefined to skip adapter if no DB
-  }
-  
-  return PrismaAdapter(prisma);
+// Check if database is available before initializing adapter
+const isDatabaseConfigured = () => {
+  const url = process.env.DATABASE_URL || process.env.adventurenest_DATABASE_URL;
+  return !!url && !url.includes('placeholder');
 };
 
-export const { handlers, auth, signIn, signOut } = NextAuth({
-  adapter: getAdapter(),
+const authConfig = {
   providers: [
     Google({
       clientId: process.env.AUTH_GOOGLE_ID,
@@ -33,13 +23,25 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       return !!session;
     },
     session({ session, user }) {
-      if (session.user) {
+      if (session.user && user) {
         session.user.id = user.id;
       }
       return session;
     },
   },
-})
+} as any;
+
+// Only attach adapter if database is properly configured
+if (isDatabaseConfigured()) {
+  authConfig.adapter = PrismaAdapter(prisma);
+} else {
+  console.warn(
+    '[NextAuth] No valid DATABASE_URL found. Auth adapter is disabled. ' +
+    'Set DATABASE_URL or adventurenest_DATABASE_URL in your environment for full auth support.'
+  );
+}
+
+export const { handlers, auth, signIn, signOut } = NextAuth(authConfig);
 
 // This solves the "Export GET/POST doesn't exist" error 
 // by making the handlers available to the route file
